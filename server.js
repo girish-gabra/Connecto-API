@@ -39,7 +39,7 @@ var upload = multer({
 app.get("/", function(req, res) {
      res.sendFile(__dirname + "/public/index.html");
  });
-app.post("/post/Upload", function(req, res) {
+app.post("/uploadPost", function(req, res) {
      upload(req, res, function(err) {
          if (err) {
          	 console.log("error in uploading file"+err);
@@ -48,6 +48,20 @@ app.post("/post/Upload", function(req, res) {
          return res.end("File uploaded sucessfully!.");
      });
  });
+
+
+app.get("/getPost/:fileName",function(req,res){
+	
+	var path = __dirname+"/Images/"+req.params.fileName;
+	if(fs.existsSync(path))	// check if file exists
+	{
+		res.sendFile(path);	
+	}
+	else{
+		res.end("File Not Found");	// incase file is not present on server
+	}
+	
+});
 
 
 app.listen(port, hostname, function(){
