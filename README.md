@@ -15,7 +15,7 @@ https://drive.google.com/open?id=0B8NUJC4CbsDpc0ZHellKOXZuaDQ
 
 APIs were built using Express framework in Node.js. It is a very simple and powerful method to build APIs and used extensively.
 
-Database design for Conetento can be found at:
+Database design for Connecto can be found at:
 
 https://drive.google.com/open?id=0B8NUJC4CbsDpQUNSRmEwTEQyb1E
 
