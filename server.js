@@ -23,11 +23,9 @@ var Storage = multer.diskStorage({
 				console.log(err);
 				return;
 			}	
-			// increment the number for the next file
-			console.log()
+			
 			fileNumber=files.length+1;
 			var originalName = file.originalname;
-			console.log(originalName);
 			var index = originalName.lastIndexOf(".");
 			var changedName =  fileNumber+originalName.substr(index);
 			callback(null,changedName);
@@ -51,6 +49,10 @@ app.get("/getFileNames",function(req,res){
 			res.send("No Files");
 		}
 		else{
+			
+			files-files.sort(function(a,b){
+							return fs.statSync(__dirname+"/Images/"+b).mtime.getTime()-fs.statSync(__dirname+"/Images/"+a).mtime.getTime(); 
+			});
 			//console.log(files);
 			var fileStr = files.toString();
 			res.send(JSON.stringify(fileStr));
@@ -59,10 +61,9 @@ app.get("/getFileNames",function(req,res){
 });
 
 app.post("/uploadPost", function(req, res) {
-	console.log('uploadPost called');
+	//console.log('uploadPost called');
      upload(req, res, function(err) {
          if (err) {
-         	 console.log("error in uploading file"+err);
              return res.end("Something went wrong!");
          }
          return res.end("File uploaded sucessfully!.");
@@ -77,7 +78,7 @@ app.post("/uploadPost", function(req, res) {
 app.get("/getPost/:fileName",function(req,res){
 	
 	var filename = req.params.fileName;
-	console.log(filename);
+	//console.log(filename);
 	var path = __dirname+"/Images/"+filename;
 	if(fs.existsSync(path))	// check if file exists
 	{
